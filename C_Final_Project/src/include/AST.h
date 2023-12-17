@@ -13,7 +13,9 @@ typedef enum {
     AST_NOOP,
     AST_LITERAL,            // For numeric literals (integers, floats)
     AST_BINARY_OP,          // For binary operations (+, -, *, /, etc.)
-    AST_UNARY_OP            // For unary operations (like -x or custom unary functions)
+    AST_UNARY_OP,            // For unary operations (like -x or custom unary functions)
+    AST_TYPE_FLOAT,
+    AST_TYPE_INT
 } AST_TYPE;
 
 typedef struct AST_STRUCT {
@@ -45,9 +47,6 @@ typedef struct AST_STRUCT {
     struct AST_STRUCT** compound_value;
     size_t compound_size;
 
-    struct AST_STRUCT* integrate_expr;  // For integration
-    struct AST_STRUCT* derivate_expr;   // For derivation
-
     /* AST_LITERAL */
     union {
         int int_value;
@@ -58,6 +57,8 @@ typedef struct AST_STRUCT {
     struct AST_STRUCT* left;
     struct AST_STRUCT* right; // For binary ops, null for unary
     char op; // Operator character (e.g., '+', '-', '*', '/')
+
+    struct AST_STRUCT* unary_operand; // Field for the operand of unary operations
 
 } AST_T;
 
