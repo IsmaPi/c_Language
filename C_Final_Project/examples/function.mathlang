@@ -1,0 +1,19 @@
+// Define a variable
+var x = 10;
+
+// Define a function to calculate the square of a number
+function square(n) {
+    var result = n * n;
+    return result;
+}
+
+// Use the function
+var y = square(x);
+
+// Basic arithmetic operation
+var z = (y + 20) / 2;
+
+// Output the results
+print(x);
+print(y);
+print(z);
