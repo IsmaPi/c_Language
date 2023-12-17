@@ -45,6 +45,9 @@ typedef struct AST_STRUCT {
     struct AST_STRUCT** compound_value;
     size_t compound_size;
 
+    struct AST_STRUCT* integrate_expr;  // For integration
+    struct AST_STRUCT* derivate_expr;   // For derivation
+
     /* AST_LITERAL */
     union {
         int int_value;
