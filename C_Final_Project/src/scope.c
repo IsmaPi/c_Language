@@ -1,4 +1,5 @@
 #include "include/scope.h"
+#include <stdio.h>
 #include <string.h>
 
 scope_T* init_scope() {
