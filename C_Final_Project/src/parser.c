@@ -267,3 +267,24 @@ AST_T* parser_parse_id(parser_T* parser, scope_T* scope) {
         return parser_parse_variable(parser, scope);
     }
 }
+
+AST_T* parse_integration_or_derivation(parser_T* parser) {
+    if (parser->current_token->type == TOKEN_INTEGRATE || parser->current_token->type == TOKEN_DERIVATE) {
+        TokenType operation = parser->current_token->type;
+        parser_eat(parser, operation); // Consume 'integrate' or 'derivate'
+        parser_eat(parser, TOKEN_LPAREN);
+        
+        AST_T* expr = parse_expression(parser); // Parse the expression inside
+
+        parser_eat(parser, TOKEN_RPAREN); 
+
+        AST_T* ast = init_ast(operation == TOKEN_INTEGRATE ? AST_INTEGRATE : AST_DERIVATIVE);
+        if (operation == TOKEN_INTEGRATE) {
+            ast->integrate_expr = expr;
+        } else {
+            ast->derivate_expr = expr;
+        }
+        return ast;
+    }
+}
+<
