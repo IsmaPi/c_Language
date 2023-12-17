@@ -38,11 +38,20 @@ token_T* lexer_get_next_token(lexer_T* lexer) {
             // Add cases for each specific operator and symbol your language uses
             case '+': return lexer_advance_with_token(lexer, init_token(TOKEN_PLUS, lexer_get_current_char_as_string(lexer))); break;
             case '-': return lexer_advance_with_token(lexer, init_token(TOKEN_MINUS, lexer_get_current_char_as_string(lexer))); break;
-            // ... (other operators like '*', '/', etc.)
+            case '*': return lexer_advance_with_token(lexer, init_token(TOKEN_STAR, lexer_get_current_char_as_string(lexer))); break;
+            case '/': return lexer_advance_with_token(lexer, init_token(TOKEN_SLASH, lexer_get_current_char_as_string(lexer))); break;
             case '(': return lexer_advance_with_token(lexer, init_token(TOKEN_LPAREN, lexer_get_current_char_as_string(lexer))); break;
             case ')': return lexer_advance_with_token(lexer, init_token(TOKEN_RPAREN, lexer_get_current_char_as_string(lexer))); break;
+            case '{': return lexer_advance_with_token(lexer, init_token(TOKEN_LBRACE, lexer_get_current_char_as_string(lexer))); break;
+            case '}': return lexer_advance_with_token(lexer, init_token(TOKEN_RBRACE, lexer_get_current_char_as_string(lexer))); break;
+            case '%': return lexer_advance_with_token(lexer, init_token(TOKEN_MODULO, lexer_get_current_char_as_string(lexer))); break;
+            case '^': return lexer_advance_with_token(lexer, init_token(TOKEN_POWER, lexer_get_current_char_as_string(lexer))); break;
             // ... (other symbols)
         }
+
+        // If no case matches, print an error and exit
+        fprintf(stderr, "Unexpected character: %c\n", lexer->c);
+        exit(EXIT_FAILURE);
     }
 
     return init_token(TOKEN_EOF, "\0");
@@ -67,7 +76,19 @@ token_T* lexer_collect_id(lexer_T* lexer) {
 token_T* lexer_check_keyword(char* value) {
     if (strcmp(value, "sin") == 0) return init_token(TOKEN_SIN, value);
     if (strcmp(value, "cos") == 0) return init_token(TOKEN_COS, value);
-    // ... (other keywords like "log", "exp", etc.)
+    if (strcmp(value, "tan") == 0) return init_token(TOKEN_TAN, value);
+    if (strcmp(value, "asin") == 0) return init_token(TOKEN_ASIN, value);
+    if (strcmp(value, "acos") == 0) return init_token(TOKEN_ACOS, value);
+    if (strcmp(value, "atan") == 0) return init_token(TOKEN_ATAN, value);
+    if (strcmp(value, "log") == 0) return init_token(TOKEN_LOG, value);
+    if (strcmp(value, "exp") == 0) return init_token(TOKEN_EXP, value);
+    if (strcmp(value, "sqrt") == 0) return init_token(TOKEN_SQRT, value);
+    if (strcmp(value, "abs") == 0) return init_token(TOKEN_ABS, value);
+    if (strcmp(value, "pi") == 0) return init_token(TOKEN_PI, value);
+    if (strcmp(value, "e") == 0) return init_token(TOKEN_E, value);
+    if (strcmp(value, "derive") == 0) return init_token(TOKEN_DERIVATE, value);
+    if (strcmp(value, "integrate") == 0) return init_token(TOKEN_INTEGRATE, value);
+    
     return init_token(TOKEN_ID, value); // Default case for identifiers
 }
 
