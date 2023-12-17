@@ -29,6 +29,8 @@ typedef enum {
     TOKEN_EXP,          // exp function
     TOKEN_SQRT,         // sqrt function
     TOKEN_ABS,          // abs function
+    TOKEN_INTEGRATE,    // integral operation
+    TOKEN_DERIVATE,     // derivative operation
     // Mathematical constants and operations
     TOKEN_PI,           // Pi 'π'
     TOKEN_E,            // Euler's number 'e'
@@ -38,9 +40,8 @@ typedef enum {
 } TokenType;
 
 typedef struct TOKEN_STRUCT {
-    TokenType type;
-    char* value;
-    // Union for numeric values
+    TokenType type;  // Type of the token
+    char* value;     // Value of the token (if applicable)
     union {
         int intValue;
         float floatValue;
