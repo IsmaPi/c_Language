@@ -38,8 +38,13 @@ typedef enum {
 } TokenType;
 
 typedef struct TOKEN_STRUCT {
-    TokenType type;  // Type of the token
-    char* value;     // Value of the token (if applicable)
+    TokenType type;
+    char* value;
+    // Union for numeric values
+    union {
+        int intValue;
+        float floatValue;
+    };
 } token_T;
 
 token_T* init_token(TokenType type, char* value);
