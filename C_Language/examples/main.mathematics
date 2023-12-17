@@ -1,3 +1,0 @@
-var resultado = integrate(x**2);
-
-print(resultado);
